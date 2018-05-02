@@ -6,6 +6,5 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 export const getPeople = functions.https.onRequest((request, response) => {
-  const thing = AirtableApi.GetPeople()
   response.send(AirtableApi.GetPeople())
 });
