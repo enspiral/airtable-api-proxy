@@ -6,5 +6,8 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 });
 
 export const getPeople = functions.https.onRequest((request, response) => {
-  response.send(GetPeople())
+  GetPeople()
+  .then((data) => {
+    response.send(data)
+  })
 });
