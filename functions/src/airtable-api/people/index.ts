@@ -10,7 +10,7 @@ export function GetAmbassadors() {
     return new Promise((resolve, reject) => {
         GetAirtablePersons()
         .then((persons :Array<any>) => {
-            resolve(pluck('fields', persons))
+            resolve(persons)
         })
         .catch(err => {console.error('Error: ', err); reject(err);})
     })
@@ -38,6 +38,7 @@ function GetAirtablePersons() {
   })
 }
 
+// Todo: test
 function mapPersons (airtablePersons, resolve) :any {
     // DL: Plucking the _rawJson here removes all meta-data except id and created-at
     const persons = pluck('_rawJson')(flatten(airtablePersons))
