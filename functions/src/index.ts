@@ -1,8 +1,13 @@
 import * as functions from 'firebase-functions';
+import { GetPeople } from './airtable-api/people';
 
-// // Start writing Firebase Functions
-// // https://firebase.google.com/docs/functions/typescript
-//
-// export const helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+export const helloWorld = functions.https.onRequest((request, response) => {
+ response.send("Hello from Firebase!");
+});
+
+export const getPeople = functions.https.onRequest((request, response) => {
+  GetPeople()
+  .then((data) => {
+    response.send(data)
+  })
+});
