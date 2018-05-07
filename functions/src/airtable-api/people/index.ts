@@ -10,6 +10,7 @@ export function GetAmbassadors() {
     return new Promise((resolve, reject) => {
         GetAirtablePersons()
         .then((persons :Array<any>) => {
+            // Todo: flatten fields values to be with createdTime and id
             resolve(persons)
         })
         .catch(err => {console.error('Error: ', err); reject(err);})
