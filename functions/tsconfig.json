@@ -5,15 +5,10 @@
     "noImplicitReturns": true,
     "outDir": "lib",
     "sourceMap": true,
-    "target": "es6",
-    "typeRoots": [
-      "./node_modules/@types",
-      "./types"
-    ]
+    "target": "es6"
   },
   "compileOnSave": true,
   "include": [
-    "src/**/*.ts",
-    "node_modules/@types"
+    "src"
   ]
 }
