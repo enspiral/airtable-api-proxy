@@ -19,7 +19,7 @@ export const Ambassador = t.interface({
   role: t.string
 })
 
-export const ArrayOfAmbassador = t.interface({
+export const ArrayAmbassadors = t.interface({
   ambassadors: t.array(Ambassador)
 })
 
@@ -28,6 +28,10 @@ export const Contributor = t.interface({
   name: t.string,
   gravatarUrl: t.string,
   quote: t.string
+})
+
+export const ArrayContributors = t.interface({
+  contributors: t.array(Contributor)
 })
 
 export type IPerson = t.TypeOf<typeof Person>
