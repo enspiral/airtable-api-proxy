@@ -1,33 +1,59 @@
-import * as Functions from 'firebase-functions'
-import * as Airtable from 'airtable'
-import { pluck, flatten } from 'ramda'
+import * as functions from 'firebase-functions'
+import * as pino from 'pino'
+import * as airtable from 'airtable'
+import { flatten, forEach, merge, pick, pluck, prop } from 'ramda'
 
-import { Person, IPerson } from './types'
+const base = new airtable({apiKey: functions.config().airtable.api_key}).base(functions.config().airtable.base)
+const logger = pino()
 
-const base = new Airtable({apiKey: Functions.config().airtable.api_key}).base(Functions.config().airtable.base);
-
-export function GetPeople() {
-  return new Promise((resolve, reject) => {
-    const airtablePeople :Array<string> = []
-    base('Person').select({
-        view: "Website View"
-    }).eachPage(function page(records, fetchNextPage) {
-        // This function (`page`) will get called for each page of records.
-        airtablePeople.push(records)
-    
-        // To fetch the next page of records, call `fetchNextPage`.
-        // If there are more records, `page` will get called again.
-        // If there are no more records, `done` will get called.
-        fetchNextPage();
-        
-    }, function done(err) {
-        if (err) {console.error('Error: ', err); reject(err);}
-        mapPeople(airtablePeople, resolve)
+export function GetAmbassadors() {
+    return new Promise((resolve, reject) => {
+        GetAirtablePersons()
+        .then((persons) => {
+            return filterPersonsProfiles(persons)
+        })
+        .then((persons) => {
+            // Todo: flatten fields values to be with createdTime and id
+            resolve(persons.map(flattenPerson))
+        })
+        .catch(err => {console.error('Error: ', err); reject(err)})
     })
-  })
 }
 
-function mapPeople (airtablePeople, resolve) :any {
-    const people = pluck('_rawJson')(flatten(airtablePeople))
-    resolve(people)
+function GetAirtablePersons() {
+    return new Promise((resolve, reject) => {
+        const airtablePersons :Array<string> = []
+
+        // DL: Name of Table in Airtable base (db)
+        base('Person').select({
+
+            // DL: Name of View of Table
+            view: "Website View"
+
+        // DL: Airtable returns paginated views - here we accumulate them into one object
+        }).eachPage(function page(records, fetchNextPage) {
+            airtablePersons.push(records)
+            fetchNextPage();
+
+        }, function done(err) {
+            if (err) {console.error('Error: ', err); reject(err);}
+            resolve(airtablePersons)
+        })
+    })
+}
+
+const getFields = prop('fields')
+const getMetaData = pick(['id', 'createdTime'])
+
+// Todo: test
+function filterPersonsProfiles (airtablePersons) {
+    // DL: Plucking the _rawJson here removes all meta-data except id and created-at
+    return pluck('_rawJson')(flatten(airtablePersons))
+}
+
+// Todo: test
+function flattenPerson(person) {
+    const flatPerson = merge(getMetaData(person), getFields(person))
+    logger.info(flatPerson, 'flattenPerson')
+    return flatPerson
 }
