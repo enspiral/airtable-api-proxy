@@ -1,6 +1,5 @@
 {
   "projects": {
-    "production": "enspiral-airtable-api-proxy",
-    "default": "enspiral-airtable-api-proxy"
+    "production": "enspiral-airtable-api-proxy"
   }
 }
