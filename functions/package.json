@@ -1,27 +1,48 @@
 {
   "name": "functions",
   "scripts": {
-    "lint": "./node_modules/.bin/tslint -p tslint.json",
-    "build": "./node_modules/.bin/tsc",
-    "mapRoot": "./",
+    "burnthemall": "rm -rf package-lock.json node_modules; npm i",
+    "test": "ava",
+    "lint": "tslint --project tsconfig.json",
+    "build": "tsc",
     "serve": "npm run build && firebase serve --only functions",
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log"
   },
+  "ava": {
+    "files": [
+      "my-test-directory/**/*.js",
+      "!my-test-directory/exclude-this-directory/**/*.js",
+      "!**/exclude-this-file.js"
+    ],
+    "source": [
+      "./src/**/*.{ts}",
+      "!lib/**/*"
+    ],
+    "concurrency": 5,
+    "failFast": true,
+    "failWithoutAssertions": false,
+    "tap": true,
+    "compileEnhancements": true
+  },
   "main": "lib/index.js",
   "dependencies": {
     "airtable": "^0.5.3",
+    "ava": "^0.25.0",
+    "ava-ts": "^0.24.5",
     "firebase-admin": "~5.12.0",
     "firebase-functions": "^1.0.2",
     "io-ts": "^1.0.6",
-    "ramda": "^0.25.0"
+    "pino": "^4.16.1",
+    "ramda": "0.25.0"
   },
   "devDependencies": {
-    "@types/ramda": "^0.25.24",
+    "@types/pino": "^4.7.1",
+    "@types/ramda": "github:types/npm-ramda#dist",
     "tslint": "^5.8.0",
-    "typescript": "^2.5.3"
+    "typescript": "2.6.1"
   },
   "private": true
 }
