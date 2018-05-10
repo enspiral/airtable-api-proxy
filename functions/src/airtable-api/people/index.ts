@@ -1,40 +1,34 @@
-import * as pino from 'pino'
-import { flatten, forEach, map, merge, pick, pluck, pipe, prop } from 'ramda'
+import { flatten, map, pick, pluck, pipe, prop } from 'ramda'
+import { spreadProp } from 'ramda-adjunct'
 import base from '../airtable'
-
-const logger = pino()
 
 // Data transforms
 // Todo: test
-const getFields = prop('fields')
-const getMetaData = pick(['id', 'createdTime'])
 const getRawJson :any = pluck('_rawJson')
 
 const filterPersonsProfiles = pipe(
     flatten,
     getRawJson
 )
-const flattenPersons = map(
-    merge(
-        getMetaData,
-        getFields
-    )
+const flattenPersonsProfile = map(
+    spreadProp('fields')
 )
 
 // Driver code
 export function GetPersons() {
     return GetAirtablePersons()
-        .then((persons) => {
+        .then((persons) => {          
             return filterPersonsProfiles(persons)
         })
         .then((personsProfiles) => {
-            return flattenPersons (personsProfiles)
+            return flattenPersonsProfile (personsProfiles)
         })
 }
 
 // Api Request
 function GetAirtablePersons() {
     return new Promise((resolve, reject) => {
+        console.log('GetAirTablePersons Started')        
         const airtablePersons = []
 
         // DL: Name of Table in Airtable base (db)
@@ -49,7 +43,8 @@ function GetAirtablePersons() {
             fetchNextPage();
 
         }, function done(err) {
-            if (err) {console.error('Error: ', err); reject(err);}
+            if (err) {console.log('Airtable Request Error: ', err); reject(err);}
+            console.log('GetAirtablePersos Successful: ', airtablePersons)            
             resolve(airtablePersons)
         })
   })
