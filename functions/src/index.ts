@@ -1,8 +1,5 @@
 import * as functions from 'firebase-functions'
-import * as pino from 'pino'
-import {GetPersons() } from './airtable-api/people'
-
-const logger = pino()
+import { GetPersons } from './airtable-api/people'
 
 export const helloWorld = functions.https.onRequest((request, response) => {
  response.send("Hello from Firebase!")
@@ -11,10 +8,11 @@ export const helloWorld = functions.https.onRequest((request, response) => {
 export const getPeople = functions.https.onRequest((request, response) => {
   GetPersons()
   .then(data => {
+    console.log('Return Flattened Persons Profiles: ', data)
     response.status(200).send(data)
   })
   .catch(err => {
-    logger.error(err, 'Get people error')
+    console.log('GetPeople Errored: ', err)
     response.status(400)
   })
 })
