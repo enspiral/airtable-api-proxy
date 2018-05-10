@@ -12,7 +12,7 @@ export const getPeople = functions.https.onRequest((request, response) => {
     response.status(200).send(data)
   })
   .catch(err => {
-    console.log('GetPeople Errored: ', err)
+    console.error('GetPeople Errored: ', err)
     response.status(400)
   })
 })
