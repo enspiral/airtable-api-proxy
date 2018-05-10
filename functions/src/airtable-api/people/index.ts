@@ -22,7 +22,7 @@ const flattenPersons = map(
 )
 
 // Driver code
-export function GetAmbassadors() {
+export function GetPersons() {
     return GetAirtablePersons()
         .then((persons) => {
             return filterPersonsProfiles(persons)
