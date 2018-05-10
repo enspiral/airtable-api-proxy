@@ -6,11 +6,11 @@ import base from '../airtable'
 // Todo: test
 const getRawJson :any = pluck('_rawJson')
 
-const filterPersonsProfiles = pipe(
+export const filterPersonsProfiles = pipe(
     flatten,
     getRawJson
 )
-const flattenPersonsProfile = map(
+export const flattenPersonsProfile = map(
     spreadProp('fields')
 )
 
