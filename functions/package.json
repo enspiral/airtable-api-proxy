@@ -41,6 +41,7 @@
   "devDependencies": {
     "@types/pino": "^4.7.1",
     "@types/ramda": "github:types/npm-ramda#dist",
+    "ts-node": "^6.0.3",
     "tslint": "^5.8.0",
     "typescript": "2.6.1"
   },
