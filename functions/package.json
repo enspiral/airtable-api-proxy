@@ -36,7 +36,8 @@
     "firebase-functions": "^1.0.2",
     "io-ts": "^1.0.6",
     "pino": "^4.16.1",
-    "ramda": "0.25.0"
+    "ramda": "0.25.0",
+    "ramda-adjunct": "^2.7.0"
   },
   "devDependencies": {
     "@types/pino": "^4.7.1",
