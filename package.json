@@ -27,7 +27,7 @@
     "deps:copy": "cpx '*{package.json}' 'dist/functions'",
     "deps:install": "cd 'dist/functions' && npm install",
     "firebase": "./node_modules/.bin/firebase",
-    "setup:env": "./node_modules/.bin/firebase functions:config:get > .runtimeconfig.json",
+    "setup:env": "npm run --silent firebase functions:config:get > .runtimeconfig.json",
     "serve": "npm run build:functions && npm run firebase serve --only functions",
     "login": "npm run firebase login",
     "deploy": "npm run firebase deploy --only functions",
