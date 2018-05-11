@@ -37,6 +37,14 @@ npm run login
 
 ## Local Testing
 
+You need to setup Api keys for firebase (you will need access to the firebase app)
+```shell
+npm run login
+npm run setup:env
+```
+
+Then run 
+
 ```shell
 npm run serve
 ```
