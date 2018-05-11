@@ -12,6 +12,7 @@ firebase-debug.log
 
 # dotenv environment variables file
 .env
+.runtimeconfig.json
 
 # example data (sensative)
 example-data
