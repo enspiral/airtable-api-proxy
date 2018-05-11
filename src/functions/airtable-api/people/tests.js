@@ -8,5 +8,8 @@ const test = FunctionsTest()
 test('filterPersonsProfiles returns correct data', t => {
   const profiles = filterPersonsProfiles(testData)
   console.log(profiles)
-  t.fail()
+  t.fail()    
+
+
+  t.fail(    )
 })
