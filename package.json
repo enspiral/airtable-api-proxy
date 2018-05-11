@@ -31,13 +31,12 @@
     "deploy": "npm run firebase deploy --only functions",
     "logs": "npm run firebase functions:log",
     "format": "prettier-standard src/**/**/**/**/**/**/*.js",
-    "precommit": "lint-staged",
     "test": "We will test one day",
     "start": "npm run firebase functions:shell"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "",
+      "pre-commit": "lint-staged",
       "pre-push": "npm test",
       "...": "..."
     }
