@@ -31,7 +31,7 @@
     "deploy": "npm run firebase deploy --only functions",
     "logs": "npm run firebase functions:log",
     "format": "prettier-standard src/**/**/**/**/**/**/*.js",
-    "test": "We will test one day",
+    "test": "echo 'We will test one day!'",
     "start": "npm run firebase functions:shell"
   },
   "husky": {
