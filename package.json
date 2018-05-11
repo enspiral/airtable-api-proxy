@@ -2,12 +2,6 @@
   "name": "airtable-api-proxy",
   "version": "1.0.0",
   "description": "Api proxy for connecting public requests with airtable via private requests",
-  "main": "index.js",
-  "scripts": {
-    "test": "test",
-    "dev": "firebase serve --only functions",
-    "deploy": "firebase deploy --only functions"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/enspiral/airtable-api-proxy.git"
@@ -22,9 +16,5 @@
   "bugs": {
     "url": "https://github.com/enspiral/airtable-api-proxy/issues"
   },
-  "homepage": "https://github.com/enspiral/airtable-api-proxy#readme",
-  "dependencies": {
-    "firebase-admin": "^5.12.0",
-    "firebase-functions": "^1.0.2"
-  }
+  "homepage": "https://github.com/enspiral/airtable-api-proxy#readme"
 }
