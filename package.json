@@ -31,6 +31,7 @@
     "deploy": "npm run firebase deploy --only functions",
     "logs": "npm run firebase functions:log",
     "format": "prettier-standard src/**/**/**/**/**/**/*.js",
+    "precommit": "lint-staged",
     "test": "We will test one day",
     "start": "npm run firebase functions:shell"
   },
@@ -40,6 +41,9 @@
       "pre-push": "npm test",
       "...": "..."
     }
+  },
+  "lint-staged": {
+     "*.js": ["standard", "git add"]
   },
   "dependencies": {
     "airtable": "^0.5.3",
@@ -56,6 +60,7 @@
     "cpx": "^1.5.0",
     "firebase-tools": "^3.18.4",
     "husky": "^1.0.0-rc.4",
+    "lint-staged": "^7.1.0",
     "prettier-standard": "^8.0.1",
     "rimraf": "^2.6.2",
     "standard": "^11.0.1"
