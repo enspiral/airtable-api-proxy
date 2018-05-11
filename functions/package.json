@@ -1,6 +1,22 @@
 {
-  "name": "functions",
-  "description": "Cloud Functions for Firebase",
+  "name": "airtable-api-proxy",
+  "version": "1.0.0",
+  "description": "Api proxy for connecting public requests with airtable via private requests",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/enspiral/airtable-api-proxy.git"
+  },
+  "keywords": [
+    "airtable",
+    "api",
+    "proxy"
+  ],
+  "author": "agentlewis",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/enspiral/airtable-api-proxy/issues"
+  },
+  "homepage": "https://github.com/enspiral/airtable-api-proxy#readme",
   "scripts": {
     "burnthemall": "rm -rf package-lock.json node_modules; npm i",
     "lint": "eslint .",
