@@ -1,4 +1,4 @@
-// export const PersonProfile = t.type({ 
+// export const PersonProfile = t.type({
 //   id: t.string,
 //   fields: t.array(t.string),
 //   createdTime: t.string

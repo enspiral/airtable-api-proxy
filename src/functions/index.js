@@ -3,7 +3,7 @@ import cors from 'cors'
 
 import { GetPersons } from './airtable-api/people'
 
-const corsHandler = cors({origin: true})
+const corsHandler = cors({ origin: true })
 
 export const getPeople = functions.https.onRequest((request, response) => {
   corsHandler(request, response, () => {
