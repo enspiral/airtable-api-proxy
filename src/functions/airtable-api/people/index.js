@@ -4,13 +4,13 @@ import base from '../airtable'
 
 // Data transforms
 // Todo: test
-const getRawJson :any = pluck('_rawJson')
+const getRawJson = pluck('_rawJson')
 
-const filterPersonsProfiles = pipe(
+export const filterPersonsProfiles = pipe(
     flatten,
     getRawJson
 )
-const flattenPersonsProfile = map(
+export const flattenPersonsProfile = map(
     spreadProp('fields')
 )
 
@@ -38,11 +38,11 @@ function GetAirtablePersons() {
             view: "Website View"
 
         // DL: Airtable returns paginated views - here we accumulate them into one object
-        }).eachPage(function page(records, fetchNextPage) {
+        }).eachPage((records, fetchNextPage) => {
             airtablePersons.push(records)
             fetchNextPage();
 
-        }, function done(err) {
+        }, (err) => {
             if (err) {console.log('Airtable Request Error: ', err); reject(err);}
             console.log('GetAirtablePersos Successful: ', airtablePersons)            
             resolve(airtablePersons)
