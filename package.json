@@ -21,11 +21,10 @@
   "scripts": {
     "burnthemall": "rimraf package-lock.json node_modules; npm i",
     "clean": "rimraf 'dist/functions'",
-    "lint": "standard ./src/**/*.js",
-    "lint:fix": "standard --fix ./src/**/*.js",
+    "lint": "prettier-standard src/**/**/**/**/**/**/*.js",
     "build:functions": "npm run lint && babel src/functions --out-dir dist/functions",
-    "deps:copy": "cpx '*{package.json}' 'dist/functions'",
-    "deps:install": "cd 'dist/functions' && npm install",
+    "deps:copy": "cpx package.json dist/functions",
+    "deps:install": "cd ./dist/functions && npm install && cd ../..",
     "firebase": "./node_modules/.bin/firebase",
     "setup:env": "npm run --silent firebase functions:config:get > .runtimeconfig.json",
     "serve": "npm run build:functions && npm run firebase serve --only functions",
@@ -48,6 +47,7 @@
     "@babel/preset-env": "^7.0.0-beta.42",
     "cpx": "^1.5.0",
     "firebase-tools": "^3.18.4",
+    "prettier-standard": "^8.0.1",
     "rimraf": "^2.6.2",
     "standard": "^11.0.1"
   }
