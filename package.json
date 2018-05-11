@@ -21,8 +21,7 @@
   "scripts": {
     "burnthemall": "rimraf package-lock.json node_modules; npm i",
     "clean": "rimraf 'dist/functions'",
-    "lint": "prettier-standard src/**/**/**/**/**/**/*.js",
-    "build:functions": "npm run lint && babel src/functions --out-dir dist/functions",
+    "build:functions": "npm run format && babel src/functions --out-dir dist/functions",
     "deps:copy": "cpx package.json dist/functions",
     "deps:install": "cd ./dist/functions && npm install && cd ../..",
     "firebase": "./node_modules/.bin/firebase",
@@ -31,7 +30,16 @@
     "login": "npm run firebase login",
     "deploy": "npm run firebase deploy --only functions",
     "logs": "npm run firebase functions:log",
+    "format": "prettier-standard src/**/**/**/**/**/**/*.js",
+    "test": "We will test one day",
     "start": "npm run firebase functions:shell"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run format",
+      "pre-push": "npm test",
+      "...": "..."
+    }
   },
   "dependencies": {
     "airtable": "^0.5.3",
@@ -47,6 +55,7 @@
     "@babel/preset-env": "^7.0.0-beta.42",
     "cpx": "^1.5.0",
     "firebase-tools": "^3.18.4",
+    "husky": "^1.0.0-rc.4",
     "prettier-standard": "^8.0.1",
     "rimraf": "^2.6.2",
     "standard": "^11.0.1"
