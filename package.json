@@ -19,20 +19,26 @@
   },
   "homepage": "https://github.com/enspiral/airtable-api-proxy#readme",
   "scripts": {
-    "burnthemall": "rimraf package-lock.json node_modules; npm i",
-    "clean": "rimraf 'dist/functions'",
-    "build:functions": "npm run format && babel src/functions --out-dir dist/functions",
-    "deps:copy": "cpx package.json dist/functions",
-    "deps:install": "cd ./dist/functions && npm install && cd ../..",
     "firebase": "./node_modules/.bin/firebase",
-    "setup:env": "npm run --silent firebase functions:config:get > .runtimeconfig.json",
-    "serve": "npm run build:functions && npm run firebase serve --only functions",
-    "login": "npm run firebase login",
+    "firebase:login": "npm run firebase login",
+    "serve": "npm run build && npm run firebase serve --only functions",
     "deploy": "npm run firebase deploy --only functions",
     "logs": "npm run firebase functions:log",
+    "clean": "rimraf 'dist'",
+    "clean:build": "npm run clean && npm run build && npm run deps",
+    "deps": "npm run deps:copy && npm run deps:env && npm run deps:install",
+    "deps:copy": "cpx package.json dist/functions",
+    "deps:env": "npm run --silent firebase functions:config:get > ./dist/functions/.runtimeconfig.json",
+    "deps:install": "cd ./dist/functions && npm install && cd ../..",
+    "build": "babel src/functions --out-dir dist/functions",
+    "watch": "npm-watch",
+    "lint": "standard",
     "format": "prettier-standard src/**/**/**/**/**/**/*.js",
     "test": "echo 'We will test one day!'",
-    "start": "npm run firebase functions:shell"
+    "start": "npm run --silent build && npm run firebase functions:shell"
+  },
+  "watch": {
+    "build": "src/**/**/**/**/**/**/*.js"
   },
   "husky": {
     "hooks": {
@@ -42,15 +48,20 @@
     }
   },
   "lint-staged": {
-     "*.js": ["standard", "git add"]
+    "*.js": [
+      "standard",
+      "git add"
+    ]
   },
   "dependencies": {
     "airtable": "^0.5.3",
+    "camelcase": "^5.0.0",
     "cors": "^2.8.4",
     "firebase-admin": "~5.12.0",
     "firebase-functions": "^1.0.2",
     "ramda": "0.25.0",
-    "ramda-adjunct": "^2.7.0"
+    "ramda-adjunct": "^2.7.0",
+    "string.prototype.trim": "^1.1.2"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.42",
@@ -60,6 +71,7 @@
     "firebase-tools": "^3.18.4",
     "husky": "^1.0.0-rc.4",
     "lint-staged": "^7.1.0",
+    "npm-watch": "^0.3.0",
     "prettier-standard": "^8.0.1",
     "rimraf": "^2.6.2",
     "standard": "^11.0.1"
