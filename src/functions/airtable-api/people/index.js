@@ -24,7 +24,6 @@ export const flattenPersonsProfile = map(spreadProp('fields'))
 
 // Create Gravatar url
 const computeGravatarUrl = email => {
-  console.log(email)
   return {
     gravatarUrl: email
       ? `https://www.gravatar.com/avatar/${md5(email)}?s=200`
