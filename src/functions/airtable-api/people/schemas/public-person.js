@@ -8,25 +8,18 @@ const schema = {
     name: {},
     contributorStatus: {},
     city: {},
-    yourBioIntroduction: {},
-    personalTaglineOriginStory: {},
-    publicWebsite: {},
-    whatAreYourAspirationsWithinTheEnspiralNetwork: {},
     country: {},
-    enspiralEmail: {},
-    preferredEmail: {},
-    showEmailOnWebsite: {},
     venture: {},
-    linkedIn: {},
-    showLinkedInOnWebsite: {},
-    twitter: {},
-    showTwitterOnWebsite: {},
+    pubilcDescription: {},
+    publicEmail: {},
+    publicWebsite: {},
+    publicLinkedIn: {},
+    publicTwitter: {},
     isAmbassador: {}
   },
   required: [
     'name',
-    'preferredEmail',
-    'personalTaglineOriginStory'
+    'publicDescription'
   ]
 }
 

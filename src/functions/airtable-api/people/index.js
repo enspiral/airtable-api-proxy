@@ -1,13 +1,24 @@
 import {
+  filter,
   flatten,
   map,
   pluck,
   pipe
 } from 'ramda'
 import { spreadProp } from 'ramda-adjunct'
+import Ajv from 'ajv'
 
 import { cleanAndCamelKeys } from '../../utility'
 import base from '../airtable'
+import * as personSchema from './schemas/public-person'
+
+const ajv = new Ajv({ removeAdditional: 'all', coerceTypes: true })
+
+// Data Mappers/Runtime Check
+const filterPersons = ajv.compile(personSchema)
+export function filterWithSchema (arrayOfObject) {
+  return filter((obj) => filterPersons(obj), arrayOfObject)
+}
 
 // Data transforms
 // Todo: test
@@ -27,6 +38,9 @@ export function GetPersons () {
     })
     .then(flatPersonsProfiles => {
       return cleanAndCamelKeys(flatPersonsProfiles)
+    })
+    .then(cleanPersonsProfiles => {
+      return filterWithSchema(cleanPersonsProfiles)
     })
 }
 
@@ -53,7 +67,7 @@ function GetAirtablePersons () {
             console.error('Airtable Request Error: ', err)
             reject(err)
           }
-          console.info('GetAirtablePersos Successful: ')
+          console.info('GetAirtablePersons Successful: ')
           resolve(airtablePersons)
         }
       )
