@@ -9,7 +9,7 @@ export const getPeople = functions.https.onRequest((request, response) => {
   corsHandler(request, response, () => {
     GetPersons()
       .then(data => {
-        console.log('Return Flattened Persons Profiles: ', data)
+        console.info('Return Flattened Persons Profiles: ', data)
         return response.status(200).send(data)
       })
       .catch(err => {
