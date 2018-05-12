@@ -1,13 +1,4 @@
-import {
-  either,
-  ifElse,
-  is,
-  identity,
-  map,
-  pipe,
-  replace,
-  trim
-} from 'ramda'
+import { either, ifElse, is, identity, map, pipe, replace, trim } from 'ramda'
 import { renameKeysWith } from 'ramda-adjunct'
 import camelcase from 'camelcase'
 
