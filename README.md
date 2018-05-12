@@ -32,20 +32,17 @@ npm install
 If you're using `firebase-tools` globally, then skip to the [_Deploy to Firebase_](#deploy-to-firebase) step.
 
 ```shell
-npm run login
+npm run firebase:login
 ```
 
 ## Local Testing
 
 You need to setup Api keys for firebase (you will need access to the firebase app)
-```shell
-npm run login
-npm run setup:env
-```
-
-Then run 
 
 ```shell
+# only needs to be run once
+npm run deps
+npm run build
 npm run serve
 ```
 
