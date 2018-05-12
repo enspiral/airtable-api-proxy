@@ -1,17 +1,12 @@
 import {
-  either,
   flatten,
-  ifElse,
-  is,
-  identity,
   map,
   pluck,
-  pipe,
-  replace,
-  trim
+  pipe
 } from 'ramda'
-import { spreadProp, renameKeysWith } from 'ramda-adjunct'
-import camelcase from 'camelcase'
+import { spreadProp } from 'ramda-adjunct'
+
+import cleanAndCamelKeys from '../../utility'
 import base from '../airtable'
 
 // Data transforms
@@ -20,17 +15,6 @@ const getRawJson = pluck('_rawJson')
 export const filterPersonsProfiles = pipe(flatten, getRawJson)
 
 export const flattenPersonsProfile = map(spreadProp('fields'))
-
-export const replaceNonAlphaWithSpace = replace(/( ?[^a-zA-Z\d\s:] ?)/g, ' ')
-const tidyKey = pipe(replaceNonAlphaWithSpace, trim, camelcase)
-
-export const cleanKey = renameKeysWith(tidyKey)
-
-export const cleanAndCamelKeys = ifElse(
-  either(is(Array), is(Object)),
-  pipe(cleanKey, map(a => cleanAndCamelKeys(a))),
-  identity
-)
 
 // Driver code
 export function GetPersons () {
@@ -66,10 +50,7 @@ function GetAirtablePersons () {
         },
         err => {
           if (err) {
-            console.error(
-              'Airtable Request Error: ',
-              err
-            )
+            console.error('Airtable Request Error: ', err)
             reject(err)
           }
           console.info('GetAirtablePersos Successful: ')
