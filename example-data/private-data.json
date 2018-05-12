@@ -37,5 +37,6 @@
   "emailAdAndName": "dummy string",
   "recordId": "dummy string",
   "zapierSearchFormula": 0,
-  "linkToOptOutForm": "dummy string4"
+  "linkToOptOutForm": "dummy string4",
+  "isAmbassador": true
 }
