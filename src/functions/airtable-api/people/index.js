@@ -21,7 +21,7 @@ export const filterPersonsProfiles = pipe(flatten, getRawJson)
 
 export const flattenPersonsProfile = map(spreadProp('fields'))
 
-export const replaceNonAlphaWithSpace = replace(/( ?[^a-zA-Z\d\s:]? )/g, ' ')
+export const replaceNonAlphaWithSpace = replace(/( ?[^a-zA-Z\d\s:] ?)/g, ' ')
 const tidyKey = pipe(replaceNonAlphaWithSpace, trim, camelcase)
 
 export const cleanKey = renameKeysWith(tidyKey)
@@ -66,7 +66,7 @@ function GetAirtablePersons () {
         },
         err => {
           if (err) {
-            console.error(message, optionalParams)(
+            console.error(
               'Airtable Request Error: ',
               err
             )
