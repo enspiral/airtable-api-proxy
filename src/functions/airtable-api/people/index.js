@@ -1,12 +1,7 @@
-import {
-  filter,
-  flatten,
-  map,
-  pluck,
-  pipe
-} from 'ramda'
+import { filter, flatten, map, merge, pipe, pluck, prop } from 'ramda'
 import { spreadProp } from 'ramda-adjunct'
 import Ajv from 'ajv'
+import md5 from 'js-md5'
 
 import { cleanAndCamelKeys } from '../../utility'
 import base from '../airtable'
@@ -16,8 +11,8 @@ const ajv = new Ajv({ removeAdditional: 'all', coerceTypes: true })
 
 // Data Mappers/Runtime Check
 const filterPersons = ajv.compile(personSchema)
-export function filterWithSchema (arrayOfObject) {
-  return filter((obj) => filterPersons(obj), arrayOfObject)
+export function filterWithSchema (objectArray) {
+  return filter(obj => filterPersons(obj), objectArray)
 }
 
 // Data transforms
@@ -26,6 +21,21 @@ const getRawJson = pluck('_rawJson')
 export const filterPersonsProfiles = pipe(flatten, getRawJson)
 
 export const flattenPersonsProfile = map(spreadProp('fields'))
+
+// Create Gravatar url
+const computeGravatarUrl = email => {
+  console.log(email)
+  return {
+    gravatarUrl: email
+      ? `https://www.gravatar.com/avatar/${md5(email)}?s=200`
+      : null
+  }
+}
+const getGravatarEmail = prop('gravatarEmail')
+export const createGravatarUrl = pipe(getGravatarEmail, computeGravatarUrl)
+export const gravatarifyPersons = map(person =>
+  merge(createGravatarUrl(person), person)
+)
 
 // Driver code
 export function GetPersons () {
@@ -40,7 +50,10 @@ export function GetPersons () {
       return cleanAndCamelKeys(flatPersonsProfiles)
     })
     .then(cleanPersonsProfiles => {
-      return filterWithSchema(cleanPersonsProfiles)
+      return gravatarifyPersons(cleanPersonsProfiles)
+    })
+    .then(cleanPersonsProfilesWithGravatarUrl => {
+      return filterWithSchema(cleanPersonsProfilesWithGravatarUrl)
     })
 }
 
