@@ -6,7 +6,7 @@ import {
 } from 'ramda'
 import { spreadProp } from 'ramda-adjunct'
 
-import cleanAndCamelKeys from '../../utility'
+import { cleanAndCamelKeys } from '../../utility'
 import base from '../airtable'
 
 // Data transforms
