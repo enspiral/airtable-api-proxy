@@ -1,7 +1,7 @@
 {
   "functions": {
     "predeploy": [
-      "npm run clean && npm run build:functions && npm run deps:copy && npm run deps:install"
+      "npm run clean && npm run build && npm run deps:copy && npm run deps:install"
     ],
     "source": "dist/functions"
   }
