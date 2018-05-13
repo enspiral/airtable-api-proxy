@@ -1,4 +1,4 @@
-import { adjust, chain, curry, concat, either, fromPairs, ifElse, is, identity, map, pipe, replace, toPairs, trim, values, zipObj } from 'ramda'
+import { adjust, chain, curry, either, fromPairs, ifElse, is, identity, map, mapObjIndexed, prop, pipe, replace, toPairs, trim, values, zipObj } from 'ramda'
 import { renameKeysWith } from 'ramda-adjunct'
 import camelcase from 'camelcase'
 import md5 from 'js-md5'
@@ -58,3 +58,9 @@ export const objFromListWith = curry((fn, list) => chain(zipObj, map(fn))(list))
  */
 
 export const mapKeys = curry((fn, obj) => fromPairs(map(adjust(fn, 0), toPairs(obj))))
+
+/* Apply a function to each key value pair
+ * similar to mapkeys - only allows any function to be run on the key/val pair
+ */
+
+export const mapKeyValues = curry((fn, obj) => fromPairs(map(fn, toPairs(obj))))
