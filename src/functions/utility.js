@@ -16,7 +16,7 @@ export const cleanAndCamelKeys = ifElse(
   identity
 )
 
-// Ramda log type
+// Ramda friendly log type
 const getType = (value) => ` ${typeof value}`
 const objType = pipe(values, map(getType))
 export const logType = (data) => {
@@ -29,6 +29,9 @@ export const logType = (data) => {
   }
   return data
 }
+
+// Ramda friendly console.log
+export const rlog = (data) => { console.log(data); return data }
 
 // Compute gravatar url from valid email - if invalid returns {}
 const isEmail = (email) => regexEmail.test(email)
