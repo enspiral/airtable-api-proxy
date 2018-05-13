@@ -1,59 +1,40 @@
-import { filter, flatten, map, merge, pipe, pluck, prop } from 'ramda'
-import { spreadProp } from 'ramda-adjunct'
+import { filter, map, merge, pipe, prop } from 'ramda'
 import Ajv from 'ajv'
-import md5 from 'js-md5'
 
-import { cleanAndCamelKeys } from '../../utility'
-import base from '../airtable'
+import { cleanAndCamelKeys, computeGravatarUrl } from '../../utility'
+import { base, flattenAndSelectJson, flattenFields } from '../airtable'
 import * as personSchema from './schemas/public-person'
 
 const ajv = new Ajv({ removeAdditional: 'all', coerceTypes: true })
 
-// Data Mappers/Runtime Check
+// Data Sanitisers & Runtime Check
 const filterPersons = ajv.compile(personSchema)
 export function filterWithSchema (objectArray) {
   return filter(obj => filterPersons(obj), objectArray)
 }
 
-// Data transforms
-// Todo: test
-const getRawJson = pluck('_rawJson')
-export const filterPersonsProfiles = pipe(flatten, getRawJson)
-
-export const flattenPersonsProfile = map(spreadProp('fields'))
-
 // Create Gravatar url
-const computeGravatarUrl = email => {
-  return {
-    gravatarUrl: email
-      ? `https://www.gravatar.com/avatar/${md5(email)}?s=200`
-      : null
-  }
-}
 const getGravatarEmail = prop('gravatarEmail')
-export const createGravatarUrl = pipe(getGravatarEmail, computeGravatarUrl)
-export const gravatarifyPersons = map(person =>
-  merge(createGravatarUrl(person), person)
+const createGravatarUrl = pipe(getGravatarEmail, computeGravatarUrl)
+
+export const gravatarifyPersons = map(person => {
+  return merge(createGravatarUrl(person), person)
+})
+
+// Data Transformers
+const flattenProfiles = map(flattenFields)
+const drivePipe = pipe(
+  flattenAndSelectJson,
+  flattenProfiles,
+  cleanAndCamelKeys,
+  gravatarifyPersons,
+  filterWithSchema
 )
 
 // Driver code
 export function GetPersons () {
   return GetAirtablePersons()
-    .then(persons => {
-      return filterPersonsProfiles(persons)
-    })
-    .then(personsProfiles => {
-      return flattenPersonsProfile(personsProfiles)
-    })
-    .then(flatPersonsProfiles => {
-      return cleanAndCamelKeys(flatPersonsProfiles)
-    })
-    .then(cleanPersonsProfiles => {
-      return gravatarifyPersons(cleanPersonsProfiles)
-    })
-    .then(cleanPersonsProfilesWithGravatarUrl => {
-      return filterWithSchema(cleanPersonsProfilesWithGravatarUrl)
-    })
+    .then(persons => drivePipe(persons))
 }
 
 // Api Request
