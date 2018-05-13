@@ -1,4 +1,4 @@
-import { either, ifElse, is, identity, map, pipe, replace, trim } from 'ramda'
+import { chain, curry, either, ifElse, is, identity, map, pipe, replace, trim, zipObj } from 'ramda'
 import { renameKeysWith } from 'ramda-adjunct'
 import camelcase from 'camelcase'
 import md5 from 'js-md5'
@@ -25,3 +25,8 @@ export const computeGravatarUrl = email => {
       : null
   }
 }
+
+// Make an object out of a list, with keys derived form each element
+// https://github.com/ramda/ramda/wiki/Cookbook#make-an-object-out-of-a-list-with-keys-derived-form-each-element
+
+export const objFromListWith = curry((fn, list) => chain(zipObj, map(fn))(list))
