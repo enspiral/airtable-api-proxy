@@ -64,6 +64,7 @@
     "js-md5": "^0.7.3",
     "ramda": "0.25.0",
     "ramda-adjunct": "^2.7.0",
+    "regex-email": "^1.0.2",
     "string.prototype.trim": "^1.1.2"
   },
   "devDependencies": {
