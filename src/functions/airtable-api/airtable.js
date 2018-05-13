@@ -11,4 +11,5 @@ export const base = new Airtable({
 // Todo: test
 const getRawJson = pluck('_rawJson')
 export const flattenAndSelectJson = pipe(flatten, getRawJson)
+
 export const flattenFields = spreadProp('fields')
