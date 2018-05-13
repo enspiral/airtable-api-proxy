@@ -8,9 +8,6 @@ const schema = {
     id: {
       type: 'string'
     },
-    name: {
-      type: 'string'
-    },
     contributorStatus: {
       type: 'string'
     },
@@ -24,6 +21,9 @@ const schema = {
       type: 'object'
     },
     gravatarUrl: {
+      type: 'string'
+    },
+    publicName: {
       type: 'string'
     },
     publicDescription: {
