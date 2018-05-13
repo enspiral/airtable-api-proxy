@@ -21,11 +21,6 @@ export const gravatarifyPersons = map(person => {
 })
 
 // Driver code
-export const GetPersons = () => {
-  return GetAirtablePersons()
-    .then(persons => driverPipe(persons))
-}
-
 const driverPipe = pipe(
   flattenAndSelectJson,
   map(flattenFields),
@@ -33,6 +28,11 @@ const driverPipe = pipe(
   gravatarifyPersons,
   filterWithSchema
 )
+
+export const GetPersons = () => {
+  return GetAirtablePersons()
+    .then(persons => driverPipe(persons))
+}
 
 // Api Request
 const GetAirtablePersons = () => {
