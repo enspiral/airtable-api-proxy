@@ -1,4 +1,4 @@
-import { adjust, chain, curry, either, fromPairs, ifElse, is, identity, map, pipe, replace, toPairs, trim, zipObj } from 'ramda'
+import { adjust, chain, curry, concat, either, fromPairs, ifElse, is, identity, map, pipe, replace, toPairs, trim, values, zipObj } from 'ramda'
 import { renameKeysWith } from 'ramda-adjunct'
 import camelcase from 'camelcase'
 import md5 from 'js-md5'
@@ -15,6 +15,20 @@ export const cleanAndCamelKeys = ifElse(
   pipe(cleanKey, map(a => cleanAndCamelKeys(a))),
   identity
 )
+
+// Ramda log type
+const getType = (value) => ` ${typeof value}`
+const objType = pipe(values, map(getType))
+export const logType = (data) => {
+  if (is(Object, data)) {
+    console.log(`Data type: {${objType(data)} }`)
+  } else if (is(Array, data)) {
+    console.log('Data type: [', typeof data[0], ']')
+  } else {
+    console.log('Data type: ', typeof data)
+  }
+  return data
+}
 
 // Compute gravatar url from valid email - if invalid returns {}
 const isEmail = (email) => regexEmail.test(email)
