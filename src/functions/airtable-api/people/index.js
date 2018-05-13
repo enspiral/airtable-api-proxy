@@ -9,9 +9,8 @@ const ajv = new Ajv({ removeAdditional: 'all', coerceTypes: true })
 
 // Data Sanitisers & Runtime Check
 const filterPersons = ajv.compile(personSchema)
-export function filterWithSchema (objectArray) {
-  return filter(obj => filterPersons(obj), objectArray)
-}
+
+export const filterWithSchema = (objectArray) => filter(filterPersons, objectArray)
 
 // Create Gravatar url
 const getGravatarEmail = prop('gravatarEmail')
@@ -21,24 +20,22 @@ export const gravatarifyPersons = map(person => {
   return merge(createGravatarUrl(person), person)
 })
 
-// Data Transformers
-const flattenProfiles = map(flattenFields)
-const drivePipe = pipe(
+// Driver code
+export const GetPersons = () => {
+  return GetAirtablePersons()
+    .then(persons => driverPipe(persons))
+}
+
+const driverPipe = pipe(
   flattenAndSelectJson,
-  flattenProfiles,
+  map(flattenFields),
   cleanAndCamelKeys,
   gravatarifyPersons,
   filterWithSchema
 )
 
-// Driver code
-export function GetPersons () {
-  return GetAirtablePersons()
-    .then(persons => drivePipe(persons))
-}
-
 // Api Request
-function GetAirtablePersons () {
+const GetAirtablePersons = () => {
   return new Promise((resolve, reject) => {
     console.info('GetAirTablePersons Started')
     const airtablePersons = []
