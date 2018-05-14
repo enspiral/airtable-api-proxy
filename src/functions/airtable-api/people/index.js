@@ -1,7 +1,7 @@
 import { filter, map, merge, pipe, prop } from 'ramda'
 import Ajv from 'ajv'
 
-import { cleanAndCamelKeys, computeGravatarUrl } from '../../utility'
+import { cleanAndCamelKeys, computeGravatarUrl, mapKeyValues, rlog } from '../../utility'
 import { base, flattenAndSelectJson, flattenFields } from '../airtable'
 import * as personSchema from './schemas/public-person'
 
@@ -20,12 +20,21 @@ export const gravatarifyPersons = map(person => {
   return merge(createGravatarUrl(person), person)
 })
 
+// Assind id of object to key args: [key, value]
+// Todo: Learning opportunity pair on writing this the ramda way with someone
+const idToKey = (keyValue) => {
+  let newKeyValue = keyValue
+  newKeyValue[0] = prop('id', keyValue[1])
+  return newKeyValue
+}
+
 // Driver code
 const driverPipe = pipe(
   flattenAndSelectJson,
   map(flattenFields),
   cleanAndCamelKeys,
   gravatarifyPersons,
+  mapKeyValues(idToKey),
   filterWithSchema
 )
 
