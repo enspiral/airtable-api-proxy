@@ -1,37 +1,41 @@
-import {
-  flatten,
-  map,
-  pluck,
-  pipe
-} from 'ramda'
-import { spreadProp } from 'ramda-adjunct'
+import { filter, map, merge, pipe, prop } from 'ramda'
+import Ajv from 'ajv'
 
-import cleanAndCamelKeys from '../../utility'
-import base from '../airtable'
+import { cleanAndCamelKeys, computeGravatarUrl } from '../../utility'
+import { base, flattenAndSelectJson, flattenFields } from '../airtable'
+import * as personSchema from './schemas/public-person'
 
-// Data transforms
-// Todo: test
-const getRawJson = pluck('_rawJson')
-export const filterPersonsProfiles = pipe(flatten, getRawJson)
+const ajv = new Ajv({ removeAdditional: 'all', coerceTypes: true })
 
-export const flattenPersonsProfile = map(spreadProp('fields'))
+// Data Sanitisers & Runtime Check
+const filterPersons = ajv.compile(personSchema)
+
+export const filterWithSchema = (objectArray) => filter(filterPersons, objectArray)
+
+// Create Gravatar url
+const getGravatarEmail = prop('gravatarEmail')
+const createGravatarUrl = pipe(getGravatarEmail, computeGravatarUrl)
+
+export const gravatarifyPersons = map(person => {
+  return merge(createGravatarUrl(person), person)
+})
 
 // Driver code
-export function GetPersons () {
+const driverPipe = pipe(
+  flattenAndSelectJson,
+  map(flattenFields),
+  cleanAndCamelKeys,
+  gravatarifyPersons,
+  filterWithSchema
+)
+
+export const GetPersons = () => {
   return GetAirtablePersons()
-    .then(persons => {
-      return filterPersonsProfiles(persons)
-    })
-    .then(personsProfiles => {
-      return flattenPersonsProfile(personsProfiles)
-    })
-    .then(flatPersonsProfiles => {
-      return cleanAndCamelKeys(flatPersonsProfiles)
-    })
+    .then(persons => driverPipe(persons))
 }
 
 // Api Request
-function GetAirtablePersons () {
+const GetAirtablePersons = () => {
   return new Promise((resolve, reject) => {
     console.info('GetAirTablePersons Started')
     const airtablePersons = []
@@ -53,7 +57,7 @@ function GetAirtablePersons () {
             console.error('Airtable Request Error: ', err)
             reject(err)
           }
-          console.info('GetAirtablePersos Successful: ')
+          console.info('GetAirtablePersons Successful: ')
           resolve(airtablePersons)
         }
       )
