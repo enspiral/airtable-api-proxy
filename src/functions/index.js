@@ -22,7 +22,7 @@ export const updatepeople = functions.https.onRequest((request, response) => {
       })
       .catch(err => {
         console.error('GetPeople Errored: ', err)
-        response.status(400)
+        response.status(500)
       })
   })
 })
