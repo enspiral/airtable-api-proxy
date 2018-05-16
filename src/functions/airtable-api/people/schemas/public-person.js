@@ -45,7 +45,7 @@ const schema = {
       type: 'boolean'
     }
   },
-  required: ['name', 'publicDescription', 'gravatarUrl']
+  required: ['publicName', 'publicDescription', 'gravatarUrl']
 }
 
 module.exports = schema
