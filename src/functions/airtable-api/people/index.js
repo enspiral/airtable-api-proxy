@@ -1,7 +1,7 @@
 import { filter, map, merge, pipe, prop } from 'ramda'
 import Ajv from 'ajv'
 
-import { cleanAndCamelKeys, computeGravatarUrl, mapKeyValues, rlog } from '../../utility'
+import { cleanAndCamelKeys, computeGravatarUrl, mapKeyValues } from '../../utility'
 import { base, flattenAndSelectJson, flattenFields } from '../airtable'
 import * as personSchema from './schemas/public-person'
 
