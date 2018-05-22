@@ -1,10 +1,23 @@
-import * as functions from 'firebase-functions'
-import Airtable from 'airtable'
+import { map, pipe } from 'ramda'
 
-const base = new Airtable({ apiKey: functions.config().airtable.api_key }).base(
-  functions.config().airtable.base
+import { cleanAndCamelKeys, gravatarifyProfiles, mapKeyValues } from '../../utility'
+import { constructFilter, flattenAndSelectJson, flattenFields, getAllRows, idToKey } from '../airtable'
+import * as schema from './schemas/public-venture'
+
+// Create data schema filter
+const schemaFilter = constructFilter(schema)
+
+// Driver code
+const driverPipe = pipe(
+  flattenAndSelectJson,
+  map(flattenFields),
+  cleanAndCamelKeys,
+  gravatarifyProfiles,
+  mapKeyValues(idToKey),
+  schemaFilter
 )
 
-export function GetVentures () {
-  // Todo
+export const GetVentures = () => {
+  return getAllRows('Venture', 'Website View')
+    .then(ventures => driverPipe(ventures))
 }

@@ -21,6 +21,7 @@
   "scripts": {
     "firebase": "./node_modules/.bin/firebase",
     "firebase:login": "npm run firebase login",
+    "firebase:keys": "npm run firebase functions:config:get",
     "serve": "npm run build && npm run firebase serve --only functions",
     "deploy": "npm run firebase deploy --only functions",
     "logs": "npm run firebase functions:log",
@@ -49,7 +50,7 @@
     }
   },
   "lint-staged": {
-    "*.js": [
+    "src/**/**/**/**/**/*.js": [
       "standard",
       "git add"
     ]

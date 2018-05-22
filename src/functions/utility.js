@@ -1,4 +1,4 @@
-import { adjust, chain, curry, either, fromPairs, ifElse, is, identity, map, mapObjIndexed, prop, pipe, replace, toPairs, trim, values, zipObj } from 'ramda'
+import { adjust, chain, curry, either, fromPairs, ifElse, is, identity, map, merge, prop, pipe, replace, toPairs, trim, values, zipObj } from 'ramda'
 import { renameKeysWith } from 'ramda-adjunct'
 import camelcase from 'camelcase'
 import md5 from 'js-md5'
@@ -35,13 +35,19 @@ export const rlog = (data) => { console.log(data); return data }
 
 // Compute gravatar url from valid email - if invalid returns {}
 const isEmail = (email) => regexEmail.test(email)
-export const computeGravatarUrl = email => {
+const computeGravatarUrl = email => {
   return {
     gravatarUrl: isEmail(email)
       ? `https://www.gravatar.com/avatar/${md5(email)}?s=200`
       : null
   }
 }
+// Create Gravatar url
+const getGravatarEmail = prop('gravatarEmail')
+const createGravatarUrl = pipe(getGravatarEmail, computeGravatarUrl)
+export const gravatarifyProfiles = map(profile => {
+  return merge(createGravatarUrl(profile), profile)
+})
 
 /* Make an object out of a list, with keys derived form each element
  * https://github.com/ramda/ramda/wiki/Cookbook#make-an-object-out-of-a-list-with-keys-derived-form-each-element
