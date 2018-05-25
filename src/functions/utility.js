@@ -38,7 +38,7 @@ const isEmail = (email) => regexEmail.test(email)
 const computeGravatarUrl = email => {
   return {
     gravatarUrl: isEmail(email)
-      ? `https://www.gravatar.com/avatar/${md5(email)}?s=200`
+      ? `https://www.gravatar.com/avatar/${md5(email)}`
       : null
   }
 }
