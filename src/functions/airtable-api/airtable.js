@@ -46,6 +46,7 @@ export const getAllRows = (baseName, viewName) => {
           pages.push(page)
           fetchNextPage()
         },
+        // DL: function to be run after the last page (its not an error handler function - but it does handle errors!)
         err => {
           if (err) {
             console.error('GetAllRows ERROR: <', baseName, '-', viewName, '>', err)
