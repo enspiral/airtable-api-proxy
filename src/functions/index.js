@@ -4,9 +4,9 @@ import admin from 'firebase-admin'
 
 import { GetPersons } from './airtable-api/persons'
 import { GetVentures } from './airtable-api/ventures'
+import { ProcessPayment } from './stripe'
 
 admin.initializeApp(functions.config().firebase)
-
 const corsHandler = cors({ origin: true })
 
 export const updatepeople = functions.https.onRequest((request, response) => {
@@ -22,7 +22,7 @@ export const updatepeople = functions.https.onRequest((request, response) => {
         return response.status(200).send({message: 'Update Persons Successful'})
       })
       .catch(err => {
-        console.error('GetPeople ERROR: ', err)
+        console.error('Update People ERROR: ', err)
         response.status(500)
       })
   })
@@ -41,7 +41,22 @@ export const updateventures = functions.https.onRequest((request, response) => {
         return response.status(200).send({message: 'Update Ventures Successful'})
       })
       .catch(err => {
-        console.error('GetVentures ERROR: ', err)
+        console.error('Update Ventures ERROR: ', err)
+        response.status(500)
+      })
+  })
+})
+
+export const contribute = functions.https.onRequest((request, response) => {
+  corsHandler(request, response, () => {
+    console.log(request.body)
+    ProcessPayment(request.body)
+      .then(data => {
+        console.log('Contribute SUCCESS: ', data)
+        return response.status(204).send()
+      })
+      .catch(err => {
+        console.error('Contribute ERROR: ', err)
         response.status(500)
       })
   })
