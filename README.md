@@ -46,6 +46,10 @@ npm run build
 npm run serve
 ```
 
+### Testing the contribute post function
+
+Use: `contribute({json: {amount: '100', token: 'tok_1CWLgxDKaELTzswuXU9vYl4v', description: '$100 contribution to Enspiral from dan.lewis@enspiral.com', metadata: {email:'dan.lewis@enspiral.com, name:'Daniel Lewis'}}})`
+
 ## Deploy to Firebase
 
 Update `.firebaserc` to use your Firebase project id.
@@ -53,3 +57,13 @@ Update `.firebaserc` to use your Firebase project id.
 ```shell
 npm run deploy
 ```
+
+## Gotchas
+
+### Local function testing error
+
+`TypeError: Cannot read property 'api_key' of undefined`
+
+This basically occurs because the 'deps' have not been copied across to the built functions folder. 
+
+Remedy: run `npm run deps`, `npm run deps:install` or for a nuke and build `npm run clean:build`
