@@ -9,7 +9,7 @@ const stripe = stripePackage(functions.config().stripe.prod)
 export const ProcessPayment = (payload) => {
   return new Promise((resolve, reject) => {
     stripe.charges.create({
-      amount: parseInt(`${payload.amount}00`),
+      amount: parseInt(payload.amount),
       currency: 'NZD',
       source: payload.token.id,
       receipt_email: payload.email,
