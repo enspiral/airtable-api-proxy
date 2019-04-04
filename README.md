@@ -33,6 +33,7 @@ If you're using `firebase-tools` globally, then skip to the [_Deploy to Firebase
 
 ```shell
 npm run firebase:login
+npm run firebase use production
 ```
 
 ## Local Testing
