@@ -1,9 +1,6 @@
 import * as functions from 'firebase-functions'
 import stripePackage from 'stripe'
 
-// TODO: Swap between test and prod stripe api keys
-// Context: firebase doesn't give us an easy way of detecting whether we are in a local test mode or deployed production mode - so manual switch for now :(
-// const stripe = stripePackage(functions.config().stripe.test)
 const stripe = stripePackage(functions.config().stripe.prod)
 
 export const ProcessPayment = (payload) => {
@@ -14,9 +11,15 @@ export const ProcessPayment = (payload) => {
       source: payload.token.id,
       receipt_email: payload.email,
       description: 'Contribution to Enspiral',
+      billing_details: {
+        email: payload.email,
+        name: payload.name
+      },
       metadata: {
         name: payload.name,
-        email: payload.email
+        email: payload.email,
+        firstName: payload.firstName,
+        lastName: payload.lastName
       }
     }, function (err, charge) {
       if (err) {

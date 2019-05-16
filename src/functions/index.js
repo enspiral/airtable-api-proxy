@@ -4,7 +4,9 @@ import admin from 'firebase-admin'
 
 import { GetPersons } from './airtable-api/persons'
 import { GetVentures } from './airtable-api/ventures'
-import { ProcessPayment } from './stripe'
+import { ProcessPaymentLive } from './stripe/contribute-live'
+import { ProcessPaymentTest} from './stripe/contribute-test'
+
 
 admin.initializeApp(functions.config().firebase)
 const corsHandler = cors({ origin: true })
@@ -47,16 +49,31 @@ export const updateventures = functions.https.onRequest((request, response) => {
   })
 })
 
-export const contribute = functions.https.onRequest((request, response) => {
+export const contributelive = functions.https.onRequest((request, response) => {
   corsHandler(request, response, () => {
     console.log(request.body)
-    ProcessPayment(request.body)
+    ProcessPaymentLive(request.body)
       .then(data => {
-        console.log('Contribute SUCCESS: ', data)
+        console.log('Contribute Live SUCCESS: ', data)
         return response.status(204).send()
       })
       .catch(err => {
-        console.error('Contribute ERROR: ', err)
+        console.error('Contribute Live ERROR: ', err)
+        response.status(500)
+      })
+  })
+})
+
+export const contributetest = functions.https.onRequest((request, response) => {
+  corsHandler(request, response, () => {
+    console.log(request.body)
+    ProcessPaymentTest(request.body)
+      .then(data => {
+        console.log('Contribute Test SUCCESS: ', data)
+        return response.status(204).send()
+      })
+      .catch(err => {
+        console.error('Contribute Test ERROR: ', err)
         response.status(500)
       })
   })
