@@ -36,6 +36,20 @@ npm run firebase:login
 npm run firebase use production
 ```
 
+## Firebase keys (environment variables)
+
+### View firebase keys
+
+```shell
+npm run firebase:keys
+```
+
+### Download firebase keys
+
+```shell
+npm run firebase:keys:download
+```
+
 ## Local Testing
 
 You need to setup Api keys for firebase (you will need access to the firebase app)

@@ -22,6 +22,7 @@
     "firebase": "./node_modules/.bin/firebase",
     "firebase:login": "npm run firebase login",
     "firebase:keys": "npm run firebase functions:config:get",
+    "firebase:keys:download":"npm run firebase functions:config:get > .runtimeconfig.json",
     "serve": "npm run build && npm run firebase serve --only functions",
     "deploy": "npm run firebase deploy --only functions",
     "logs": "npm run firebase functions:log",
