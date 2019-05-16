@@ -3,7 +3,7 @@ import stripePackage from 'stripe'
 
 const stripe = stripePackage(functions.config().stripe.test)
 
-export const ProcessPayment = (payload) => {
+export const ProcessPaymentTest = (payload) => {
   return new Promise((resolve, reject) => {
     stripe.charges.create({
       amount: parseInt(payload.amount),
