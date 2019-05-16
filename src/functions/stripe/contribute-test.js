@@ -11,10 +11,6 @@ export const ProcessPaymentTest = (payload) => {
       source: payload.token.id,
       receipt_email: payload.email,
       description: 'Test contribution to Enspiral',
-      billing_details: {
-        email: payload.email,
-        name: payload.name
-      },
       metadata: {
         name: payload.name,
         email: payload.email,

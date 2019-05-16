@@ -11,10 +11,6 @@ export const ProcessPaymentLive = (payload) => {
       source: payload.token.id,
       receipt_email: payload.email,
       description: 'Contribution to Enspiral',
-      billing_details: {
-        email: payload.email,
-        name: payload.name
-      },
       metadata: {
         name: payload.name,
         email: payload.email,
