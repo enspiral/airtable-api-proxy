@@ -5,7 +5,7 @@ import admin from 'firebase-admin'
 import { GetPersons } from './airtable-api/persons'
 import { GetVentures } from './airtable-api/ventures'
 import { ProcessPaymentLive } from './stripe/contribute-live'
-import { ProcessPaymentTest} from './stripe/contribute-test'
+import { ProcessPaymentTest } from './stripe/contribute-test'
 
 
 admin.initializeApp(functions.config().firebase)
