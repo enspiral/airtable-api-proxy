@@ -21,11 +21,11 @@ export const updatepeople = functions.https.onRequest((request, response) => {
       })
       .then(data => {
         console.info('Update-Firebase-DB SUCCESFUL: <Persons>', data)
-        return response.status(200).send({message: 'Update Persons Successful'})
+        return response.status(200).send('Update Persons Successful')
       })
       .catch(err => {
         console.error('Update People ERROR: ', err)
-        return response.status(500).send({error: err})
+        return response.status(500).send(err.message)
       })
   })
 })
@@ -40,11 +40,11 @@ export const updateventures = functions.https.onRequest((request, response) => {
       })
       .then(data => {
         console.info('Update-Firebase-DB SUCCESFUL: <Ventures>', data)
-        return response.status(200).send({message: 'Update Ventures Successful'})
+        return response.status(200).send('Update Ventures Successful')
       })
       .catch(err => {
         console.error('Update Ventures ERROR: ', err)
-        return response.status(500).send({error: err})
+        return response.status(500).send(err.message)
       })
   })
 })
@@ -55,11 +55,11 @@ export const contributelive = functions.https.onRequest((request, response) => {
     ProcessPaymentLive(request.body)
       .then(data => {
         console.log('Contribute Live SUCCESS: ', data)
-        return response.status(204).send({dataProcessed: data})
+        return response.send(204)
       })
       .catch(err => {
         console.error('Contribute Live ERROR: ', err)
-        return response.status(500).send({error: err})
+        return response.status(500).send(err.message)
       })
   })
 })
@@ -70,11 +70,11 @@ export const contributetest = functions.https.onRequest((request, response) => {
     ProcessPaymentTest(request.body)
       .then(data => {
         console.log('Contribute Test SUCCESS: ', data)
-        return response.status(204).send({dataProcessed: data})
+        return response.send(204)
       })
       .catch(err => {
         console.error('Contribute Test ERROR: ', err)
-        return response.status(500).send({error: err})
+        return response.status(500).send(err.message)
       })
   })
 })
