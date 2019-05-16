@@ -10,7 +10,7 @@ export const ProcessPayment = (payload) => {
       currency: 'NZD',
       source: payload.token.id,
       receipt_email: payload.email,
-      description: 'Contribution to Enspiral',
+      description: 'Test contribution to Enspiral',
       billing_details: {
         email: payload.email,
         name: payload.name
