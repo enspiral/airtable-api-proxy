@@ -67,6 +67,7 @@
     "firebase-admin": "^7.3.0",
     "firebase-functions": "^2.3.1",
     "js-md5": "^0.7.3",
+    "node-fetch": "^2.6.0",
     "ramda": "0.25.0",
     "ramda-adjunct": "^2.7.0",
     "regex-email": "^1.0.2",

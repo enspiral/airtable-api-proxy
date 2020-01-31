@@ -3,6 +3,7 @@ import { renameKeysWith } from 'ramda-adjunct'
 import camelcase from 'camelcase'
 import md5 from 'js-md5'
 import regexEmail from 'regex-email'
+import fetch from 'node-fetch'
 
 // Todo: Test
 
@@ -37,10 +38,17 @@ export const rlog = (data) => { console.log(data); return data }
 const isEmail = (email) => regexEmail.test(email)
 const computeGravatarUrl = email => {
   return {
-    gravatarUrl: isEmail(email)
-      ? `https://www.gravatar.com/avatar/${md5(email)}`
+    gravatarUrl: isEmail(email) && hasGravatarCustomImage(`https://www.gravatar.com/avatar/${md5(email)}?d=404`) 
+      ? 'https://www.gravatar.com/avatar/${md5(email)}?d=404'
       : null
   }
+}
+// Check Gravatar url has user photo
+const hasGravatarCustomImage = url => {
+  return fetch(url)
+    .then( res => {
+      return res.status = 404 ? false : true
+    })
 }
 // Create Gravatar url
 const getGravatarEmail = prop('gravatarEmail')
