@@ -49,6 +49,9 @@ const hasGravatarCustomImage = url => {
     .then( res => {
       return res.status = 404 ? false : true
     })
+    .catch( err => {
+      return false
+    })
 }
 // Create Gravatar url
 const getGravatarEmail = prop('gravatarEmail')
