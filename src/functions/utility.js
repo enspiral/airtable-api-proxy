@@ -39,7 +39,7 @@ const isEmail = (email) => regexEmail.test(email)
 const computeGravatarUrl = email => {
   return {
     gravatarUrl: isEmail(email) && hasGravatarCustomImage(`https://www.gravatar.com/avatar/${md5(email)}?d=404`) 
-      ? 'https://www.gravatar.com/avatar/${md5(email)}?d=404'
+      ? `https://www.gravatar.com/avatar/${md5(email)}?d=404`
       : null
   }
 }
