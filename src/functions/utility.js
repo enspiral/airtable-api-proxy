@@ -37,12 +37,22 @@ export const rlog = (data) => { console.log(data); return data }
 // Compute gravatar url from valid email - if invalid returns {}
 const isEmail = (email) => regexEmail.test(email)
 const computeGravatarUrl = email => {
-  return {
-    gravatarUrl: isEmail(email) && hasGravatarCustomImage(`https://www.gravatar.com/avatar/${md5(email)}?d=404`) 
-      ? `https://www.gravatar.com/avatar/${md5(email)}?d=404`
-      : null
+  if (isEmail(email)) {
+    return hasGravatarCustomImage(`https://www.gravatar.com/avatar/${md5(email)}?d=404`)
+      .then(isUrlValid => {
+        isUrlValid 
+        ? { gravatarUrl: `https://www.gravatar.com/avatar/${md5(email)}?d=404` } 
+        : { gravatarUrl: null } 
+      })
+      .catch( err => {
+        console.log("Gravatar formatting error", err);
+        return { gravatarUrl: `Something went wrong with the gravatar url formatting: ${err}` }
+      })
+  } else {
+    return { gravatarUrl: "Invalid email" } 
   }
 }
+
 // Check Gravatar url has user photo
 const hasGravatarCustomImage = url => {
   return fetch(url)
