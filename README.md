@@ -82,3 +82,23 @@ npm run deploy
 This basically occurs because the 'deps' have not been copied across to the built functions folder. 
 
 Remedy: run `npm run deps`, `npm run deps:install` or for a nuke and build `npm run clean:build`
+
+
+### Deploy stops working with unclear error
+
+Check the firebase-debug.log and if it has an error:
+
+ > TypeError: Cannot read property 'wanted' of undefined
+
+Then follow these [instructions on stack overflow](https://stackoverflow.com/questions/56875994/typeerror-cannot-read-property-wanted-of-undefined)
+
+```
+FILE:
+/usr/local/lib/node_modules/firebase-tools/lib/checkFirebaseSDKVersion.js
+
+add this to account for the updated empty output of {}\n around line 24
+
+    if (data && data.toString() !== "{}\n") {
+        output = JSON.parse(data.toString("utf8")); // existing Code!
+    }
+```
