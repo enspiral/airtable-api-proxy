@@ -15,13 +15,14 @@ export const updatepeople = functions.https.onRequest((request, response) => {
   corsHandler(request, response, () => {
     GetPersons()
       .then(persons => {
-        console.info('Update-Firebase-DB STARTED: <Persons>', persons)
-        if(persons.length > 0){
+        console.info('Update-Firebase-DB STARTED: <Persons>', Object.keys(persons).length)
+        if(Object.keys(persons).length > 0){
           admin.database().ref('/persons').set(persons)
-        }        return persons
+        }
+        return persons
       })
       .then(data => {
-        console.info('Update-Firebase-DB SUCCESFUL: <Persons>', data)
+        console.info('Update-Firebase-DB SUCCESFUL: <Persons>')
         return response.status(200).send('Update Persons Successful')
       })
       .catch(err => {
@@ -36,7 +37,7 @@ export const scheduledupdatepeople = functions.pubsub.schedule('15 1 * * *').onR
     GetPersons()
       .then(persons => {
         console.info('Update-Firebase-DB STARTED: <Persons>')
-        if(persons.length > 0){
+        if(Object.keys(persons).length > 0){
           admin.database().ref('/persons').set(persons)
         }
         return persons
@@ -56,8 +57,8 @@ export const updateventures = functions.https.onRequest((request, response) => {
   corsHandler(request, response, () => {
     GetVentures()
       .then(ventures => {
-        console.info('Update-Firebase-DB STARTED: <Ventures>', ventures)
-        if(ventures.length > 0){
+        console.info('Update-Firebase-DB STARTED: <Ventures>', Object.keys(ventures).length)
+        if(Object.keys(ventures).length > 0){
           admin.database().ref('/ventures').set(ventures)
         }
         return ventures
@@ -78,7 +79,7 @@ export const scheduledventuresupdate = functions.pubsub.schedule('15 1 * * *').o
     GetVentures()
       .then(ventures => {
         console.info('Update-Firebase-DB STARTED: <Ventures>')
-        if(ventures.length > 0){
+        if(Object.keys(ventures).length > 0){
           admin.database().ref('/ventures').set(ventures)
         }
         return ventures
