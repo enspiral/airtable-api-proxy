@@ -106,3 +106,7 @@ add this to account for the updated empty output of {}\n around line 24
 ### All my records just disappeared or is not updating anymore!!!
 
 One likely cause of this is that the airtable api key has been changed. This will have to be fetched from the airtable account and uploaded as an firebase environment variable
+
+```Shell
+npm run firebase functions:config:set airtable.api_key="THE API KEY"
+```
