@@ -36,7 +36,7 @@ const driverPipe = pipe(
 
 export const constructFilter = (schema) => {
   return (objectArray) => {
-    return filter(ajv.compile(schema), driverPipe(objectArray))
+    return filter(ajv.compile(schema).catch(err => console.log(err)), driverPipe(objectArray))
   }
 }
 
