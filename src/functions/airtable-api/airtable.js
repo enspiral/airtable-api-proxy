@@ -3,12 +3,11 @@ import { map, filter, flatten, prop, pipe, pluck } from 'ramda'
 import { spreadProp } from 'ramda-adjunct'
 import Airtable from 'airtable'
 import Ajv from 'ajv'
-import setupAsync from 'ajv-async'
 
 import { cleanAndCamelKeys, gravatarifyProfiles, mapKeyValues } from '../utility'
 
 
-const ajv = setupAsync(new Ajv({ removeAdditional: 'all', coerceTypes: true, format: 'fast' }));
+const ajv = new Ajv({ removeAdditional: 'all', coerceTypes: true, format: 'fast' })
 
 // Data transforms
 // Todo: test
@@ -36,7 +35,7 @@ const driverPipe = pipe(
 
 export const constructFilter = (schema) => {
   return (objectArray) => {
-    return filter(ajv.compile(schema).catch(err => console.log(err)), driverPipe(objectArray))
+    return filter(ajv.compile(schema), driverPipe(objectArray))
   }
 }
 
