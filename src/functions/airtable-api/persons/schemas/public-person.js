@@ -21,7 +21,12 @@ const schema = {
       type: 'object'
     },
     gravatarUrl: {
-      type: 'string'
+      type: 'string',
+      format: 'uri'
+    },
+    publicProfileAirtableUrl: {
+      type: 'string',
+      format: 'uri'
     },
     publicName: {
       type: 'string'
@@ -30,16 +35,20 @@ const schema = {
       type: 'string'
     },
     publicEmail: {
-      type: 'string'
+      type: 'string',
+      format: 'email'
     },
     publicWebsite: {
-      type: 'string'
+      type: 'string',
+      format: 'uri'
     },
     publicLinkedIn: {
-      type: 'string'
+      type: 'string',
+      format: 'uri'
     },
     publicTwitter: {
-      type: 'string'
+      type: 'string',
+      format: 'uri'
     },
     isAmbassador: {
       type: 'boolean'
