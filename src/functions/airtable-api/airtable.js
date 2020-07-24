@@ -32,7 +32,7 @@ export const base = new Airtable({
 export const getAllRows = (baseName, viewName) => {
   return new Promise((resolve, reject) => {
     console.info('GetAllRows STARTED: <', baseName, '-', viewName, '>')
-    const pages = []
+    const allRecords = []
 
     // DL: Name of Table in Airtable base (db)
     base(baseName)
@@ -41,9 +41,9 @@ export const getAllRows = (baseName, viewName) => {
         view: viewName
       })
       .eachPage(
-        (page, fetchNextPage) => {
+        (records, fetchNextPage) => {
           // DL: Airtable returns paginated views - here we accumulate them into one object
-          pages.push(page)
+          allRecords.push(records)
           fetchNextPage()
         },
         // DL: function to be run after the last page (its not an error handler function - but it does handle errors!)
@@ -52,8 +52,8 @@ export const getAllRows = (baseName, viewName) => {
             console.error('GetAllRows ERROR: <', baseName, '-', viewName, '>', err)
             reject(err)
           }
-          console.info('GetAllRows SUCCESFUL: <', baseName, '-', viewName, '>')
-          resolve(pages)
+          console.info('GetAllRows SUCCESFUL: <', baseName, '-', viewName, '>', err)
+          resolve(allRecords)
         }
       )
   })

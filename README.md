@@ -102,3 +102,7 @@ add this to account for the updated empty output of {}\n around line 24
         output = JSON.parse(data.toString("utf8")); // existing Code!
     }
 ```
+
+### All my records just disappeared or is not updating anymore!!!
+
+One likely cause of this is that the airtable api key has been changed. This will have to be fetched from the airtable account and uploaded as an firebase environment variable
