@@ -55,7 +55,7 @@ export const getAllRows = (baseName, viewName) => {
             console.error('GetAllRows ERROR: <', baseName, '-', viewName, '>', err)
             reject(err)
           }
-          console.info('GetAllRows SUCCESFUL: <', baseName, '-', viewName, '>', allRecords.length)          
+          console.info('GetAllRows SUCCESFUL: <', baseName, '-', viewName, '>', 'number of records returned:' + allRecords.length)          
           resolve(allRecords)
         }
       )
