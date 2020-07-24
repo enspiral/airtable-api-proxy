@@ -9,7 +9,8 @@ import fetch from 'node-fetch'
 const gravatarOptions = {
   s: '600',
   f: 'y',
-  d: '404'
+  d: '404',
+  protocol: 'https'
 }
 
 // Todo: Test
