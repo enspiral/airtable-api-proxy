@@ -15,7 +15,7 @@ export const updatepeople = functions.https.onRequest((request, response) => {
   corsHandler(request, response, () => {
     GetPersons()
       .then(persons => {
-        console.info('Update-Firebase-DB STARTED: <Persons>')
+        console.info('Update-Firebase-DB STARTED: <Persons>', persons)
         admin.database().ref('/persons').set(persons)
         return persons
       })
@@ -53,7 +53,7 @@ export const updateventures = functions.https.onRequest((request, response) => {
   corsHandler(request, response, () => {
     GetVentures()
       .then(ventures => {
-        console.info('Update-Firebase-DB STARTED: <Ventures>')
+        console.info('Update-Firebase-DB STARTED: <Ventures>', ventures)
         admin.database().ref('/ventures').set(ventures)
         return ventures
       })

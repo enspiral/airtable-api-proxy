@@ -20,4 +20,5 @@ const driverPipe = pipe(
 export const GetPersons = () => {
   return getAllRows('Person', 'Website View Public Data')
     .then(persons => driverPipe(persons))
+    .catch(err => console.log(err))
 }

@@ -61,9 +61,10 @@ const computeGravatarUrl = email => {
 }
 
 // Check Gravatar url has user photo
-const hasGravatarCustomImage = url => {
-  return fetch(url)
+const hasGravatarCustomImage = async url => {
+  return await fetch(url)
     .then( res => {
+      console.log(res)
       return res.status = 404 ? false : true
     })
     .catch( err => {
