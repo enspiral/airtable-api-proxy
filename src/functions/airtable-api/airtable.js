@@ -41,13 +41,16 @@ export const getAllRows = (baseName, viewName) => {
         view: viewName
       })
       .eachPage(
-        (records, fetchNextPage) => {
+        function page(records, fetchNextPage) {
           // DL: Airtable returns paginated views - here we accumulate them into one object
           allRecords.push(records)
+
+          // To fetch the next page of records, call `fetchNextPage`.
+          // If there are more records, `page` will get called again.
+          // If there are no more records, `done` will get called.
           fetchNextPage()
         },
-        // DL: function to be run after the last page (its not an error handler function - but it does handle errors!)
-        err => {
+        function done(err) {
           if (err) {
             console.error('GetAllRows ERROR: <', baseName, '-', viewName, '>', err)
             reject(err)
