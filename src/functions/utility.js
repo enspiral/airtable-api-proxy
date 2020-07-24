@@ -45,32 +45,12 @@ export const rlog = (data) => { console.log(data); return data }
 const isEmail = (email) => regexEmail.test(email)
 const computeGravatarUrl = email => {
   if (isEmail(email)) {
-    return hasGravatarCustomImage(gravatar.url(email))
-      .then(isUrlValid => {
-        isUrlValid 
-        ? { gravatarUrl: gravatar.url(email) } 
-        : { gravatarUrl: null } 
-      })
-      .catch( err => {
-        console.log("Gravatar formatting error", err);
-        return { gravatarUrl: `Something went wrong with the gravatar url formatting: ${err}` }
-      })
+    return gravatar.url(email)
   } else {
-    return { gravatarUrl: "Invalid email" } 
+    return { gravatarUrl: null} 
   }
 }
 
-// Check Gravatar url has user photo
-const hasGravatarCustomImage = async url => {
-  return await fetch(url)
-    .then( res => {
-      console.log(res)
-      return res.status = 404 ? false : true
-    })
-    .catch( err => {
-      return false
-    })
-}
 // Create Gravatar url
 const getGravatarEmail = prop('gravatarEmail')
 const createGravatarUrl = pipe(getGravatarEmail, computeGravatarUrl)
