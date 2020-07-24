@@ -1,5 +1,4 @@
 const schema = {
-  $async: true,
   $schema: 'http://json-schema.org/schema#',
   title: 'Person',
   description:
@@ -22,12 +21,10 @@ const schema = {
       type: 'object'
     },
     gravatarUrl: {
-      type: 'string',
-      format: 'uri'
+      type: 'string'
     },
     publicProfileAirtableUrl: {
-      type: 'string',
-      format: 'uri'
+      type: 'string'
     },
     publicName: {
       type: 'string'
@@ -36,25 +33,21 @@ const schema = {
       type: 'string'
     },
     publicEmail: {
-      type: 'string',
-      format: 'email'
+      type: 'string'
     },
     publicWebsite: {
-      type: 'string',
-      format: 'uri'
+      type: 'string'
     },
     publicLinkedIn: {
-      type: 'string',
-      format: 'uri'
+      type: 'string'
     },
     publicTwitter: {
-      type: 'string',
-      format: 'uri'
+      type: 'string'
     },
     isAmbassador: {
       type: 'boolean'
     }
-  }
+  },
 }
 
 module.exports = schema
