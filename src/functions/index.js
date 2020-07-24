@@ -16,8 +16,9 @@ export const updatepeople = functions.https.onRequest((request, response) => {
     GetPersons()
       .then(persons => {
         console.info('Update-Firebase-DB STARTED: <Persons>', persons)
-        admin.database().ref('/persons').set(persons)
-        return persons
+        if(persons.length > 0){
+          admin.database().ref('/persons').set(persons)
+        }        return persons
       })
       .then(data => {
         console.info('Update-Firebase-DB SUCCESFUL: <Persons>', data)
@@ -35,7 +36,9 @@ export const scheduledupdatepeople = functions.pubsub.schedule('15 1 * * *').onR
     GetPersons()
       .then(persons => {
         console.info('Update-Firebase-DB STARTED: <Persons>')
-        admin.database().ref('/persons').set(persons)
+        if(persons.length > 0){
+          admin.database().ref('/persons').set(persons)
+        }
         return persons
       })
       .then(data => {
@@ -54,7 +57,9 @@ export const updateventures = functions.https.onRequest((request, response) => {
     GetVentures()
       .then(ventures => {
         console.info('Update-Firebase-DB STARTED: <Ventures>', ventures)
-        admin.database().ref('/ventures').set(ventures)
+        if(ventures.length > 0){
+          admin.database().ref('/ventures').set(ventures)
+        }
         return ventures
       })
       .then(data => {
@@ -73,7 +78,9 @@ export const scheduledventuresupdate = functions.pubsub.schedule('15 1 * * *').o
     GetVentures()
       .then(ventures => {
         console.info('Update-Firebase-DB STARTED: <Ventures>')
-        admin.database().ref('/ventures').set(ventures)
+        if(ventures.length > 0){
+          admin.database().ref('/ventures').set(ventures)
+        }
         return ventures
       })
       .then(data => {
