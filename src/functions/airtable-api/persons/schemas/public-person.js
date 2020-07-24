@@ -20,8 +20,26 @@ const schema = {
     ventureMember: {
       type: 'object'
     },
+    skills: {
+      type: 'string'
+    },
+    activities: {
+      type: 'string'
+    },
+    values: {
+      type: 'string'
+    },
+    interests: {
+      type: 'string'
+    },
     gravatarUrl: {
       type: 'string'
+    },
+    useGravatar: {
+      type: 'boolean'
+    },
+    showOnWebsite: {
+      type: 'boolean'
     },
     publicProfileAirtableUrl: {
       type: 'string'
