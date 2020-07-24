@@ -2,8 +2,15 @@ import { adjust, chain, curry, either, fromPairs, ifElse, is, identity, map, mer
 import { renameKeysWith } from 'ramda-adjunct'
 import camelcase from 'camelcase'
 import md5 from 'js-md5'
+import gravatar from 'gravatar'
 import regexEmail from 'regex-email'
 import fetch from 'node-fetch'
+
+const gravatarOptions = {
+  s: '600',
+  f: 'y',
+  d: '404'
+}
 
 // Todo: Test
 
@@ -38,10 +45,10 @@ export const rlog = (data) => { console.log(data); return data }
 const isEmail = (email) => regexEmail.test(email)
 const computeGravatarUrl = email => {
   if (isEmail(email)) {
-    return hasGravatarCustomImage(`https://www.gravatar.com/avatar/${md5(email)}?d=404`)
+    return hasGravatarCustomImage(gravatar.url(email))
       .then(isUrlValid => {
         isUrlValid 
-        ? { gravatarUrl: `https://www.gravatar.com/avatar/${md5(email)}?d=404` } 
+        ? { gravatarUrl: gravatar.url(email) } 
         : { gravatarUrl: null } 
       })
       .catch( err => {
