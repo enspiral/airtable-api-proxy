@@ -57,7 +57,7 @@
     ]
   },
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "dependencies": {
     "airtable": "^0.6.0",
