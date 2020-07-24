@@ -1,8 +1,14 @@
 import * as functions from 'firebase-functions'
-import { filter, flatten, prop, pipe, pluck } from 'ramda'
+import { map, filter, flatten, prop, pipe, pluck } from 'ramda'
 import { spreadProp } from 'ramda-adjunct'
 import Airtable from 'airtable'
 import Ajv from 'ajv'
+import setupAsync from 'ajv-async'
+
+import { cleanAndCamelKeys, gravatarifyProfiles, mapKeyValues } from '../utility'
+
+
+const ajv = setupAsync(new Ajv({ removeAdditional: 'all', coerceTypes: true, format: 'fast' }));
 
 // Data transforms
 // Todo: test
@@ -20,9 +26,19 @@ export const idToKey = (keyValue) => {
 }
 
 // Data Validation
-const ajv = new Ajv({ removeAdditional: 'all', coerceTypes: true })
+const driverPipe = pipe(
+  flattenAndSelectJson,
+  map(flattenFields),
+  cleanAndCamelKeys,
+  gravatarifyProfiles,
+  mapKeyValues(idToKey)
+)
 
-export const constructFilter = (schema) => (objectArray) => filter(ajv.compile(schema), objectArray)
+export const constructFilter = (schema) => {
+  return (objectArray) => {
+    return filter(ajv.compile(schema), driverPipe(objectArray))
+  }
+}
 
 // Queries
 export const base = new Airtable({
@@ -55,7 +71,7 @@ export const getAllRows = (baseName, viewName) => {
             console.error('GetAllRows ERROR: <', baseName, '-', viewName, '>', err)
             reject(err)
           }
-          console.info('GetAllRows SUCCESFUL: <', baseName, '-', viewName, '>', 'number of records returned:' + allRecords.length)          
+          console.info('GetAllRows SUCCESFUL: <', baseName, '-', viewName, '>')          
           resolve(allRecords)
         }
       )

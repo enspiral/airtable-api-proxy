@@ -1,4 +1,5 @@
 const schema = {
+  $async: true,
   $schema: 'http://json-schema.org/schema#',
   title: 'Person',
   description:
@@ -53,8 +54,7 @@ const schema = {
     isAmbassador: {
       type: 'boolean'
     }
-  },
-  required: ['publicName', 'publicDescription', 'gravatarUrl']
+  }
 }
 
 module.exports = schema

@@ -62,6 +62,7 @@
   "dependencies": {
     "airtable": "^0.8.1",
     "ajv": "^6.12.3",
+    "ajv-async": "^1.0.1",
     "camelcase": "^6.0.0",
     "cors": "^2.8.5",
     "firebase-admin": "^9.0.0",
