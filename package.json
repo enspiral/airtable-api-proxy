@@ -64,7 +64,7 @@
     "ajv": "^6.10.0",
     "camelcase": "^5.0.0",
     "cors": "^2.8.5",
-    "firebase-admin": "^7.4.0",
+    "firebase-admin": "^9.0.0",
     "firebase-functions": "^3.8.0",
     "gravatar": "^1.8.1",
     "js-md5": "^0.7.3",
