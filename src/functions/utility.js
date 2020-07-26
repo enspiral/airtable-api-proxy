@@ -7,7 +7,7 @@ import regexEmail from 'regex-email'
 import fetch from 'node-fetch'
 
 const gravatarOptions = {
-  s: '600',
+  s: '700',
   d: '404',
   protocol: 'http'
 }
