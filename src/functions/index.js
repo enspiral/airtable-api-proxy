@@ -33,24 +33,22 @@ export const updatepeople = functions.https.onRequest((request, response) => {
 })
 
 export const scheduledupdatepeople = functions.pubsub.schedule('15 1 * * *').onRun((context) => {
-  corsHandler(request, response, () => {
-    GetPersons()
-      .then(persons => {
-        console.info('Update-Firebase-DB STARTED: <Persons>')
-        if(Object.keys(persons).length > 0){
-          admin.database().ref('/persons').set(persons)
-        }
-        return persons
-      })
-      .then(data => {
-        console.info('Update-Firebase-DB SUCCESFUL: <Persons>', data)
-        return response.status(200).send('Update Persons Successful')
-      })
-      .catch(err => {
-        console.error('Update People ERROR: ', err)
-        return response.status(500).send(err.message)
-      })
-  })
+  GetPersons()
+    .then(persons => {
+      console.info('Update-Firebase-DB STARTED: <Persons>')
+      if(Object.keys(persons).length > 0){
+        admin.database().ref('/persons').set(persons)
+      }
+      return persons
+    })
+    .then(data => {
+      console.info('Update-Firebase-DB SUCCESFUL: <Persons>', data)
+      return response.status(200).send('Update Persons Successful')
+    })
+    .catch(err => {
+      console.error('Update People ERROR: ', err)
+      return response.status(500).send(err.message)
+    })
 });
 
 export const updateventures = functions.https.onRequest((request, response) => {
@@ -75,24 +73,22 @@ export const updateventures = functions.https.onRequest((request, response) => {
 })
 
 export const scheduledventuresupdate = functions.pubsub.schedule('15 1 * * *').onRun((context) => {
-  corsHandler(request, response, () => {
-    GetVentures()
-      .then(ventures => {
-        console.info('Update-Firebase-DB STARTED: <Ventures>')
-        if(Object.keys(ventures).length > 0){
-          admin.database().ref('/ventures').set(ventures)
-        }
-        return ventures
-      })
-      .then(data => {
-        console.info('Update-Firebase-DB SUCCESFUL: <Ventures>', data)
-        return response.status(200).send('Update Ventures Successful')
-      })
-      .catch(err => {
-        console.error('Update Ventures ERROR: ', err)
-        return response.status(500).send(err.message)
-      })
-  })
+  GetVentures()
+    .then(ventures => {
+      console.info('Update-Firebase-DB STARTED: <Ventures>')
+      if(Object.keys(ventures).length > 0){
+        admin.database().ref('/ventures').set(ventures)
+      }
+      return ventures
+    })
+    .then(data => {
+      console.info('Update-Firebase-DB SUCCESFUL: <Ventures>', data)
+      return response.status(200).send('Update Ventures Successful')
+    })
+    .catch(err => {
+      console.error('Update Ventures ERROR: ', err)
+      return response.status(500).send(err.message)
+    })
 });
 
 export const contributelive = functions.https.onRequest((request, response) => {
