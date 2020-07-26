@@ -44,8 +44,9 @@ export const rlog = (data) => { console.log(data); return data }
 // Compute gravatar url from valid email - if invalid returns {}
 const isEmail = (email) => regexEmail.test(email)
 const computeGravatarUrl = email => {
+  const url = gravatar.url(email, gravatarOptions)
   if (isEmail(email)) {
-    return { gravatarUrl: gravatar.url(email, gravatarOptions) }
+    return { gravatarUrl: url.replace('http', 'https') }
   } else {
     return { gravatarUrl: null } 
   }
