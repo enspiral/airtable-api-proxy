@@ -60,7 +60,7 @@
     "node": "10"
   },
   "dependencies": {
-    "airtable": "^0.8.1",
+    "airtable": "^0.12.2",
     "ajv": "^6.12.3",
     "ajv-async": "^1.0.1",
     "camelcase": "^6.0.0",
