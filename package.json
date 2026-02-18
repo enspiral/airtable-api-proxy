@@ -60,7 +60,7 @@
     "node": "10"
   },
   "dependencies": {
-    "airtable": "^0.8.1",
+    "airtable": "^0.12.2",
     "ajv": "^6.12.3",
     "ajv-async": "^1.0.1",
     "camelcase": "^6.0.0",
@@ -84,7 +84,7 @@
     "ajv-cli": "^3.2.1",
     "cpx": "^1.5.0",
     "firebase-functions-test": "^0.2.1",
-    "firebase-tools": "^8.6.0",
+    "firebase-tools": "^14.11.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.11",
     "npm-watch": "^0.6.0",
